@@ -12,34 +12,30 @@ import SwiftyJSON
 
 class ViewController:UIViewController{
     
-    
-    
     override func viewDidLoad() {
        
         
-      var a = getUse()
-        print(a)
         
-        var tt = getContatos()
+        let tt = getContatos()
         print(tt)
     }
     
     
-    func getUse(){
+//    func getUse(){
+//
+//        Alamofire.request("\(urlBase)/contatos/1", method: .get).responseJSON { (response) in
+//
+//            if let resposta = response.result.value as? Array<Dictionary<String,Any>>{
+//                let json = JSON(resposta)
+//                let dat = json["contato"][0]["nome"].stringValue
+//                print("teste codigo id \(dat)")
+//
+//            }
+//
+//        }
+//
+//    }
     
-        Alamofire.request("\(urlBase)/contatos/1", method: .get).responseJSON { (response) in
-            
-            if let resposta = response.result.value as? Array<Dictionary<String,Any>>{
-                let json = JSON(resposta)
-                let dat = json["contato"][0]["nome"].stringValue
-                print("teste codigo id \(dat)")
-                
-            }
-            
-        }
-    
-    }
-        
 //        func retornaUsuario(sucesso:@escaping(_ sucesso:Array<String>)->Void,fallha:@escaping(_ erro:String)->Void){
         
     func getContatos() -> Array<String>	{
@@ -51,38 +47,40 @@ class ViewController:UIViewController{
             print("tes response\(resposta.debugDescription)")
             print("test tresponse\(resposta.result.value))")
             print("test codigo response\(resposta.response))")
-
             
-            if let dataResposta = resposta.result.value as? Array<Dictionary<String,Any>>{
-                let json = JSON(
-              
-                
+            
+            if let dataResposta = resposta.result.value as? Dictionary<String,Any>{
+                let json  = JSON(dataResposta)
+                let contatos = json["contatos"].arrayValue
+                for index in 0...2{
+                    let nome =  contatos[index]["nome"].stringValue
+                 
+                    print("teste nome --\(nome)")
+                    
+                }
+             
             }
+            
+          
 
 //            if let dataResposta = resposta.result.value as? Array<Dictionary<String,Any>>{
 //                let json = JSON(dataResposta)
+//                let contato = json[]
 //                    for index  in 0...5{
+//
 //                        let contatos = json[index]["contatos"].stringValue
 ////                    let nome = json["usuario"][index]["bilhetes"][0]["nome"].stringValue
-////                    let contatos = json[index]["numero"].stringValue
+//                    let contatos = json["contatos"][index]["numero"].stringValue
 //                    print("teste nome = e contatos = \(contatos)")
 ////                    lista.append(nome)
 //
 //                }
-//
-//            }
 
+            }
+  return lista
 
         }
-        print("teste lista a\(lista)")
-
-       
-        return lista
-
     
-    
-    }
-            
     
 
   
